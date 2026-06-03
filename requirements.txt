@@ -1,0 +1,13 @@
+langchain
+fastapi
+uvicorn
+sentence-transformers
+faiss-cpu
+sqlite-utils
+pydantic
+numpy
+torch
+pandas
+requests beautifulsoup4
+#irm https://ollama.com/install.ps1 | iex
+#ollama pull smollm:135
