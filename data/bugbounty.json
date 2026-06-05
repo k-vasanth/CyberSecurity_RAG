@@ -1,0 +1,10 @@
+[
+  {
+    "title": "Stored XSS in Profile Page",
+    "report": "Attacker can inject malicious JavaScript into the profile bio field."
+  },
+  {
+    "title": "SQL Injection in Login",
+    "report": "Login form is vulnerable to SQL injection through username parameter."
+  }
+]

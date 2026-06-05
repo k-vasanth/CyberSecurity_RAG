@@ -1,0 +1,14 @@
+[
+  {
+    "id": "cve_1",
+    "source": "CVE",
+    "title": "CVE-2021-44228 (Log4Shell)",
+    "content": "Remote code execution vulnerability in Apache Log4j affecting versions 2.0-beta9 to 2.14.1."
+  },
+  {
+    "id": "cve_2",
+    "source": "CVE",
+    "title": "CVE-2017-0144 (EternalBlue)",
+    "content": "SMBv1 vulnerability exploited by WannaCry ransomware, allowing remote code execution."
+  }
+]

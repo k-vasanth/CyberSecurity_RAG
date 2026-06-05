@@ -8,10 +8,8 @@ class VectorDB:
         self.dimension = dimension
 
         if os.path.exists("data/faiss_index.bin"):
-            os.remove("data/faiss_index.bin")
             self.index = faiss.read_index("data/faiss_index.bin")
             with open("data/payloads.pkl", "rb") as f:
-                os.remove("data/payloads.pkl")
                 self.payloads = pickle.load(f)
                 print(type(next(iter(self.payloads.keys()))))
             self.next_id = len(self.payloads)

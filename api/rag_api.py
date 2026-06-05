@@ -1,7 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
-from sqlite_utils.cli import query
 from retrieval.retriever import Retriever
 from context.context_builder import ContextBuilder
 from generation.slm_generator import SLMGenerator
@@ -40,7 +38,7 @@ def ask_rag(request: QueryRequest):
 
     context = context_builder.build(retrieved_docs)
     print("\n===== BUILT CONTEXT =====")
-    print(context[:2000])
+    print(context[:200] + "..." if len(context) > 200 else context)
 
     answer = generator.generate(query=query,context=context)
     print("\n===== GENERATED ANSWER =====")

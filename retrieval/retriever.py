@@ -1,8 +1,7 @@
-
-
 from embedding.embedder import Embedder
 from storage.vector_db import VectorDB
 from retrieval.ranker import Reranker
+from retrieval.query_rewriter import QueryRewriter
 
 import numpy as np
 class Retriever:
@@ -10,15 +9,17 @@ class Retriever:
         self.embedder = Embedder()
         self.reranker = Reranker()
         self.vector_db = VectorDB()
-        
+        self.query_rewriter = QueryRewriter()
 
     def retrieve(self, query, top_k=5):
+        query = self.query_rewriter.rewrite(query)
         query_vector = self.embedder.model.encode(query,normalize_embeddings=True)
         print("Query vector shape:", query_vector.shape)
         print("Vectors in index:", self.vector_db.index.ntotal)
         
         results = self.vector_db.search(query_vector, top_k)
-        
+        if not results:
+            return []
         retrieved_docs = []
         for result in results:
             retrieved_docs.append({
@@ -29,11 +30,9 @@ class Retriever:
             })
             print(f"ID: {result['id']}")
             print(f"Score: {result['score']:.4f}")
-        retrieved_docs = self.reranker.rank(query,retrieved_docs)
-        if not results:
-            return []
         
-        top_score=results[0]["score"]
+        retrieved_docs = self.reranker.rank(query,retrieved_docs)
+        top_score=retrieved_docs[0]["rerank_score"]
         if top_score<0.4:
             return []
         
@@ -44,13 +43,13 @@ class Retriever:
             if key not in seen:
                 seen.add(key)
                 unique_docs.append(doc)
+        retrieved_docs = unique_docs[:top_k]
         for i, doc in enumerate(retrieved_docs, start=1):
             print(f"\nDoc {i}")
             print("FAISS Score :", doc["score"])
             print("Rerank Score:", doc["rerank_score"])
             print(doc["content"][:300])
 
-        if not retrieved_docs:
-            return[]
 
         return retrieved_docs
+    
