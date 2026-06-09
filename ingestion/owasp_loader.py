@@ -11,6 +11,8 @@ class OWASPLoader:
     "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
     "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
     "https://owasp.org/www-community/attacks/xss/",
+    "https://owasp.org/www-community/attacks/sql_injection",
+    "https://owasp.org/www-community/attacks/authentication_bypass"
     ]
         
 
